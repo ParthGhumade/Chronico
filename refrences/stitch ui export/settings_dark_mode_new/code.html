@@ -1,0 +1,220 @@
+<!DOCTYPE html><html class="dark" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Chronico - Settings</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                "tertiary-fixed-dim": "#ffb780",
+                "on-surface": "#e5e2e1",
+                "on-primary": "#002e69",
+                "surface-container": "#201f1f",
+                "on-secondary-fixed-variant": "#41474d",
+                "on-tertiary-fixed-variant": "#6f3800",
+                "on-primary-container": "#00285c",
+                "on-primary-fixed": "#001a41",
+                "inverse-primary": "#005ac1",
+                "on-primary-fixed-variant": "#004494",
+                "on-background": "#e5e2e1",
+                "tertiary": "#ffb780",
+                "on-tertiary-container": "#442000",
+                "error": "#ffb4ab",
+                "surface": "#131313",
+                "on-tertiary-fixed": "#2f1400",
+                "surface-dim": "#131313",
+                "on-error": "#690005",
+                "surface-bright": "#393939",
+                "secondary-fixed": "#dde3e9",
+                "surface-container-highest": "#353534",
+                "on-secondary-fixed": "#161c21",
+                "inverse-on-surface": "#313030",
+                "secondary-fixed-dim": "#c1c7cd",
+                "on-tertiary": "#4e2600",
+                "on-surface-variant": "#c2c6d5",
+                "on-secondary": "#2b3136",
+                "surface-container-lowest": "#0e0e0e",
+                "outline-variant": "#424753",
+                "secondary": "#c1c7cd",
+                "surface-variant": "#353534",
+                "surface-container-high": "#2a2a2a",
+                "primary-container": "#4d8efe",
+                "on-error-container": "#ffdad6",
+                "primary-fixed-dim": "#adc6ff",
+                "tertiary-fixed": "#ffdcc4",
+                "primary-fixed": "#d8e2ff",
+                "surface-container-low": "#1c1b1b",
+                "background": "#131313",
+                "secondary-container": "#41474d",
+                "tertiary-container": "#db760f",
+                "outline": "#8c909f",
+                "error-container": "#93000a",
+                "inverse-surface": "#e5e2e1",
+                "surface-tint": "#adc6ff",
+                "primary": "#adc6ff",
+                "on-secondary-container": "#b0b6bc"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-desktop": "32px",
+                      "xs": "4px",
+                      "xl": "64px",
+                      "margin-mobile": "16px",
+                      "sm": "12px",
+                      "gutter": "24px",
+                      "lg": "40px",
+                      "md": "24px",
+                      "base": "8px"
+              },
+              "fontFamily": {
+                      "body-lg": ["Inter"],
+                      "label-sm": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "label-md": ["Inter"],
+                      "body-md": ["Inter"],
+                      "display": ["Inter"],
+                      "headline-lg-mobile": ["Inter"]
+              },
+              "fontSize": {
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+          font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col pb-safe antialiased">
+<!-- TopAppBar (Mobile & Desktop) -->
+<header class="bg-surface dark:bg-surface flex justify-between items-center px-margin-mobile w-full h-16 docked full-width top-0 sticky z-40">
+<div class="flex items-center">
+
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary dark:text-primary-fixed-dim hidden md:block">Chronico</h1>
+<h1 class="font-title-md text-title-md text-primary dark:text-primary-fixed-dim md:hidden font-bold">Chronico</h1>
+</div>
+<div class="flex items-center">
+
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow w-full max-w-[container-max-width] mx-auto px-margin-mobile md:px-margin-desktop py-gutter md:py-margin-desktop mb-24 md:mb-8 grid grid-cols-4 md:grid-cols-12 gap-gutter">
+<!-- Settings Container (Centered 8 columns on desktop) -->
+<div class="col-span-4 md:col-start-3 md:col-span-8 bg-surface-container-lowest rounded-xl shadow-[0px_4px_12px_rgba(0,0,0,0.08)] border border-outline-variant/30 overflow-hidden">
+<div class="p-gutter md:p-margin-desktop border-b border-outline-variant/30 bg-surface-container-low">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Institutional Settings</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Manage global preferences and official details for report generation.</p>
+</div>
+<div class="p-gutter md:p-margin-desktop space-y-gutter md:space-y-margin-desktop">
+<!-- Logo Upload Section -->
+<hr class="border-outline-variant/30">
+<!-- Form Fields -->
+<div class="space-y-gutter md:space-y-margin-desktop rounded-xl">
+<!-- School Name -->
+<div class="relative bg-surface-container-highest border-b border-outline focus-within:border-primary focus-within:border-b-2 rounded-xl">
+<input class="block px-4 pb-2 pt-6 w-full text-body-lg text-on-surface bg-transparent border-0 appearance-none focus:outline-none focus:ring-0 peer rounded-xl" id="schoolName" placeholder=" " type="text" value="Springfield Elementary">
+<label class="absolute text-body-md text-on-surface-variant duration-300 transform -translate-y-3 scale-75 top-4 z-10 origin-[0] left-4 peer-focus:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 pointer-events-none" for="schoolName">Official School Name</label>
+</div>
+<!-- School Address -->
+<div class="relative bg-surface-container-highest border-b border-outline focus-within:border-primary focus-within:border-b-2 rounded-xl">
+<textarea class="block px-4 pb-2 pt-6 w-full text-body-lg text-on-surface bg-transparent border-0 appearance-none focus:outline-none focus:ring-0 peer resize-none rounded-xl" id="schoolAddress" placeholder=" " rows="3">742 Evergreen Terrace, Springfield, State, 12345</textarea>
+<label class="absolute text-body-md text-on-surface-variant duration-300 transform -translate-y-3 scale-75 top-4 z-10 origin-[0] left-4 peer-focus:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 pointer-events-none" for="schoolAddress">Registered Address</label>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Principal -->
+<div class="relative bg-surface-container-highest border-b border-outline focus-within:border-primary focus-within:border-b-2 rounded-xl">
+<input class="block px-4 pb-2 pt-6 w-full text-body-lg text-on-surface bg-transparent border-0 appearance-none focus:outline-none focus:ring-0 peer rounded-xl" id="principalName" placeholder=" " type="text" value="Seymour Skinner">
+<label class="absolute text-body-md text-on-surface-variant duration-300 transform -translate-y-3 scale-75 top-4 z-10 origin-[0] left-4 peer-focus:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 pointer-events-none" for="principalName">Principal / Headmaster</label>
+</div>
+<!-- Signatory -->
+<div class="relative bg-surface-container-highest border-b border-outline focus-within:border-primary focus-within:border-b-2 rounded-xl">
+<input class="block px-4 pb-2 pt-6 w-full text-body-lg text-on-surface bg-transparent border-0 appearance-none focus:outline-none focus:ring-0 peer rounded-xl" id="defaultSignatory" placeholder=" " type="text" value="Gary Chalmers">
+<label class="absolute text-body-md text-on-surface-variant duration-300 transform -translate-y-3 scale-75 top-4 z-10 origin-[0] left-4 peer-focus:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 pointer-events-none" for="defaultSignatory">Default Signatory (Superintendent)</label>
+</div>
+</div>
+</div>
+<!-- AI Generation Preferences (Bonus Section to fit the theme) -->
+<div class="space-y-gutter mt-margin-desktop">
+<div class="flex items-center justify-between rounded-xl">
+<h3 class="font-title-md text-title-md text-on-surface">Additional Institutional Details</h3>
+</div>
+<div class="space-y-4 rounded-xl">
+<div class="flex flex-col gap-2">
+<h4 class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Custom Fields</h4>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<div class="relative bg-surface-container-highest border-b border-outline focus-within:border-primary focus-within:border-b-2 rounded-xl">
+<input class="block px-4 pb-2 pt-6 w-full text-body-lg text-on-surface bg-transparent border-0 appearance-none focus:outline-none focus:ring-0 peer rounded-xl" id="customFieldName1" placeholder=" " type="text" value="U-DISE Code">
+<label class="absolute text-body-md text-on-surface-variant duration-300 transform -translate-y-3 scale-75 top-4 z-10 origin-[0] left-4 peer-focus:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 pointer-events-none" for="customFieldName1">Field Name</label>
+</div>
+<div class="relative bg-surface-container-highest border-b border-outline focus-within:border-primary focus-within:border-b-2 rounded-xl">
+<input class="block px-4 pb-2 pt-6 w-full text-body-lg text-on-surface bg-transparent border-0 appearance-none focus:outline-none focus:ring-0 peer rounded-xl" id="customFieldValue1" placeholder=" " type="text" value="27210509902">
+<label class="absolute text-body-md text-on-surface-variant duration-300 transform -translate-y-3 scale-75 top-4 z-10 origin-[0] left-4 peer-focus:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 pointer-events-none" for="customFieldValue1">Value</label>
+</div>
+</div>
+</div>
+<button class="flex items-center gap-2 text-primary font-label-sm text-label-sm uppercase tracking-wider hover:bg-primary/5 p-2 rounded-lg transition-colors" type="button">
+<span class="material-symbols-outlined">add</span>
+            Add Field
+        </button>
+</div>
+<hr class="border-outline-variant/30">
+</div>
+</div>
+<!-- Action Area -->
+<div class="p-gutter md:p-margin-desktop bg-surface-container-low border-t border-outline-variant/30 flex justify-end">
+<button class="bg-primary-container text-on-primary-container hover:bg-primary-fixed-variant hover:text-white transition-colors h-[48px] px-8 rounded-full font-label-sm text-label-sm flex items-center gap-2 active:scale-95 shadow-sm" type="button">
+<span class="material-symbols-outlined" data-icon="save">save</span>
+                    Save Settings
+                </button>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden bg-surface-container dark:bg-surface-container fixed bottom-0 w-full z-50 flex justify-around items-center h-20 pb-safe px-2 docked full-width rounded-t-none shadow-md">
+<!-- Home (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-5 py-1 hover:bg-surface-variant dark:hover:bg-surface-variant-highest rounded-full transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-sm text-label-sm mt-1">Home</span>
+</a>
+<!-- Events (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-5 py-1 hover:bg-surface-variant dark:hover:bg-surface-variant-highest rounded-full transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="event_note">event_note</span>
+<span class="font-label-sm text-label-sm mt-1">Events</span>
+</a>
+<!-- Settings (Active) -->
+<a class="flex flex-col items-center justify-center bg-secondary-container dark:bg-on-secondary-fixed-variant text-on-secondary-container dark:text-secondary-fixed rounded-full px-5 py-1 active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined fill" data-icon="settings" data-weight="fill">settings</span>
+<span class="font-label-sm text-label-sm mt-1">Settings</span>
+</a>
+</nav>
+</body></html>

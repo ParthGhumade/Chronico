@@ -1,0 +1,298 @@
+<!DOCTYPE html><html class="dark" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Chronico - Create Event</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "tertiary-fixed-dim": "#ffb780",
+                "on-surface": "#e5e2e1",
+                "on-primary": "#002e69",
+                "surface-container": "#201f1f",
+                "on-secondary-fixed-variant": "#41474d",
+                "on-tertiary-fixed-variant": "#6f3800",
+                "on-primary-container": "#00285c",
+                "on-primary-fixed": "#001a41",
+                "inverse-primary": "#005ac1",
+                "on-primary-fixed-variant": "#004494",
+                "on-background": "#e5e2e1",
+                "tertiary": "#ffb780",
+                "on-tertiary-container": "#442000",
+                "error": "#ffb4ab",
+                "surface": "#131313",
+                "on-tertiary-fixed": "#2f1400",
+                "surface-dim": "#131313",
+                "on-error": "#690005",
+                "surface-bright": "#393939",
+                "secondary-fixed": "#dde3e9",
+                "surface-container-highest": "#353534",
+                "on-secondary-fixed": "#161c21",
+                "inverse-on-surface": "#313030",
+                "secondary-fixed-dim": "#c1c7cd",
+                "on-tertiary": "#4e2600",
+                "on-surface-variant": "#c2c6d5",
+                "on-secondary": "#2b3136",
+                "surface-container-lowest": "#0e0e0e",
+                "outline-variant": "#424753",
+                "secondary": "#c1c7cd",
+                "surface-variant": "#353534",
+                "surface-container-high": "#2a2a2a",
+                "primary-container": "#4d8efe",
+                "on-error-container": "#ffdad6",
+                "primary-fixed-dim": "#adc6ff",
+                "tertiary-fixed": "#ffdcc4",
+                "primary-fixed": "#d8e2ff",
+                "surface-container-low": "#1c1b1b",
+                "background": "#131313",
+                "secondary-container": "#41474d",
+                "tertiary-container": "#db760f",
+                "outline": "#8c909f",
+                "error-container": "#93000a",
+                "inverse-surface": "#e5e2e1",
+                "surface-tint": "#adc6ff",
+                "primary": "#adc6ff",
+                "on-secondary-container": "#b0b6bc"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+        },
+        "spacing": {
+                "margin-desktop": "32px",
+                "xs": "4px",
+                "xl": "64px",
+                "margin-mobile": "16px",
+                "sm": "12px",
+                "gutter": "24px",
+                "lg": "40px",
+                "md": "24px",
+                "base": "8px"
+        },
+        "fontFamily": {
+                "body-lg": [
+                        "Inter"
+                ],
+                "label-sm": [
+                        "Inter"
+                ],
+                "headline-md": [
+                        "Inter"
+                ],
+                "headline-lg": [
+                        "Inter"
+                ],
+                "label-md": [
+                        "Inter"
+                ],
+                "body-md": [
+                        "Inter"
+                ],
+                "display": [
+                        "Inter"
+                ],
+                "headline-lg-mobile": [
+                        "Inter"
+                ]
+        },
+        "fontSize": {
+                "body-lg": [
+                        "18px",
+                        {
+                                "lineHeight": "28px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "label-sm": [
+                        "12px",
+                        {
+                                "lineHeight": "16px",
+                                "letterSpacing": "0.02em",
+                                "fontWeight": "500"
+                        }
+                ],
+                "headline-md": [
+                        "24px",
+                        {
+                                "lineHeight": "32px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "headline-lg": [
+                        "32px",
+                        {
+                                "lineHeight": "40px",
+                                "letterSpacing": "-0.01em",
+                                "fontWeight": "600"
+                        }
+                ],
+                "label-md": [
+                        "14px",
+                        {
+                                "lineHeight": "20px",
+                                "letterSpacing": "0.01em",
+                                "fontWeight": "500"
+                        }
+                ],
+                "body-md": [
+                        "16px",
+                        {
+                                "lineHeight": "24px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "display": [
+                        "48px",
+                        {
+                                "lineHeight": "56px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "headline-lg-mobile": [
+                        "24px",
+                        {
+                                "lineHeight": "32px",
+                                "fontWeight": "600"
+                        }
+                ]
+        }
+},
+    },
+  }
+</script>
+<style>
+        .material-symbols-outlined {
+          font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-filled {
+          font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-surface text-primary dark:text-primary-fixed-dim font-title-md text-title-md docked full-width top-0 flat no shadows flex justify-between items-center px-margin-mobile w-full h-16 md:px-margin-desktop sticky z-10 border-b border-surface-container-highest">
+<div class="flex items-center gap-4">
+
+<span class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary dark:text-primary-fixed-dim md:font-headline-lg md:text-headline-lg">Chronico</span>
+</div>
+<!-- Desktop Nav embedded in TopAppBar -->
+<nav class="hidden md:flex items-center gap-6 h-full">
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-variant dark:hover:bg-on-surface-variant transition-colors px-4 py-2 rounded-full flex items-center gap-2" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<a class="text-primary dark:text-primary-fixed-dim flex items-center gap-2 bg-secondary-container dark:bg-on-secondary-fixed-variant text-on-secondary-container dark:text-secondary-fixed rounded-full px-5 py-1" href="#">
+<span class="material-symbols-outlined icon-filled">event_note</span>
+<span class="font-label-sm text-label-sm">Events</span>
+</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-variant dark:hover:bg-on-surface-variant transition-colors px-4 py-2 rounded-full flex items-center gap-2" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-sm text-label-sm">Settings</span>
+</a>
+</nav>
+
+</header>
+<!-- Main Canvas -->
+<main class="flex-grow flex flex-col md:flex-row w-full max-w-[container-max-width] mx-auto pb-24 md:pb-8 pt-4 md:pt-8 gap-gutter px-margin-mobile md:px-margin-desktop">
+<!-- Left Column: Form Details -->
+<section class="w-full md:w-1/3 flex flex-col gap-6">
+<!-- Context Header -->
+<div>
+
+
+</div>
+<!-- Form Card -->
+<div class="bg-surface-container-lowest rounded-xl p-6 border border-surface-container-highest shadow-sm flex flex-col gap-5">
+<!-- Event Name -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-sm text-label-sm text-on-surface-variant" for="event-name">Event Name</label>
+<input class="w-full bg-surface-container-low border-b-2 border-surface-variant focus:border-primary-container focus:ring-0 px-4 py-3 font-body-lg text-body-lg text-on-background placeholder-outline transition-colors rounded-xl" id="event-name" placeholder="e.g., Annual Science Fair" type="text">
+</div>
+<!-- Event Date -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-sm text-label-sm text-on-surface-variant" for="event-date">Event Date</label>
+<div class="relative">
+<input class="w-full bg-surface-container-low border-b-2 border-surface-variant focus:border-primary-container focus:ring-0 px-4 py-3 font-body-lg text-body-lg text-on-background transition-colors appearance-none pr-10 rounded-xl" id="event-date" type="date">
+</div>
+</div>
+<!-- Event Category -->
+<div class="flex flex-col gap-1.5">
+<div class="relative">
+</div>
+</div>
+<!-- Venue -->
+</div>
+<!-- Photo Upload Section -->
+<div class="bg-surface-container-lowest rounded-xl p-6 border border-surface-container-highest shadow-sm">
+<div class="flex justify-between items-center mb-4">
+<h2 class="font-title-md text-title-md font-medium text-on-background">Photos</h2>
+<span class="font-label-sm text-label-sm text-on-surface-variant">0 attached</span>
+</div>
+<div class="grid grid-cols-3 gap-3">
+<!-- Upload Button -->
+<button class="aspect-square bg-surface-container border-2 border-dashed border-outline-variant rounded-lg flex flex-col items-center justify-center gap-1 hover:bg-surface-container-high transition-colors text-primary-container cursor-pointer">
+<span class="font-label-sm text-label-sm">Upload</span>
+</button>
+<!-- Placeholders for future photos -->
+<div class="aspect-square bg-surface-container-low rounded-lg border border-surface-variant flex items-center justify-center opacity-50">
+</div>
+<div class="aspect-square bg-surface-container-low rounded-lg border border-surface-variant flex items-center justify-center opacity-50">
+</div>
+</div>
+</div>
+</section>
+<!-- Right Column: Narration Editor -->
+<section class="w-full md:w-2/3 flex flex-col h-[442px] md:h-auto min-h-[400px]">
+<div class="bg-surface-container-lowest rounded-xl border border-surface-container-highest shadow-sm flex flex-col flex-grow overflow-hidden relative">
+<!-- Editor Toolbar (Sticky) -->
+<!-- Text Area -->
+<textarea class="w-full flex-grow resize-none border-none focus:ring-0 p-6 font-body-lg text-body-lg text-on-background bg-transparent placeholder-outline leading-relaxed rounded-xl" placeholder="Describe everything that happened during the event..."></textarea>
+<!-- Ambient decorative shadow for depth -->
+<div class="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-surface-container-lowest to-transparent pointer-events-none"></div>
+</div>
+</section>
+</main>
+<!-- Bottom Persistent Bar (Actions) -->
+<div class="fixed bottom-0 md:bottom-auto md:top-[72px] md:right-margin-desktop left-0 w-full md:w-auto bg-surface-container-lowest md:bg-transparent border-t border-surface-container-highest md:border-none p-4 md:p-0 flex justify-between md:justify-end items-center z-40 md:z-20 pb-safe shadow-[0_-4px_12px_rgba(0,0,0,0.05)] md:shadow-none mb-[80px] md:mb-0 px-6 gap-6">
+<div class="flex items-center gap-2 text-on-surface-variant px-2 md:mr-4">
+<span class="material-symbols-outlined text-[18px]">cloud_done</span>
+<span class="font-label-sm text-label-sm">Saved</span>
+</div>
+<div class="flex gap-4">
+<button class="px-6 py-3 h-[48px] rounded-full bg-primary-container text-on-primary font-title-md text-title-md font-medium hover:opacity-90 transition-opacity flex items-center justify-center gap-2 shadow-sm">
+<span class="material-symbols-outlined">auto_awesome</span>
+                Generate Report
+            </button>
+</div>
+</div>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden bg-surface-container dark:bg-surface-container text-primary dark:text-primary-fixed-dim font-label-sm text-label-sm docked full-width bottom-0 rounded-t-none shadow-md fixed bottom-0 w-full z-50 flex justify-around items-center h-20 pb-safe px-2">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-5 py-1 hover:bg-surface-variant dark:hover:bg-surface-variant-highest transition-colors rounded-xl" href="#">
+<span class="material-symbols-outlined mb-1">home</span>
+<span class="">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container dark:bg-on-secondary-fixed-variant text-on-secondary-container dark:text-secondary-fixed rounded-full px-5 py-1 scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined icon-filled mb-1">event_note</span>
+<span class="">Events</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-5 py-1 hover:bg-surface-variant dark:hover:bg-surface-variant-highest transition-colors rounded-xl" href="#">
+<span class="material-symbols-outlined mb-1">settings</span>
+<span class="">Settings</span>
+</a>
+</nav>
+</body></html>
