@@ -1,0 +1,36 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: chronico_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: chronico_user
+      POSTGRES_PASSWORD: chronico_password
+      POSTGRES_DB: chronico_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  api:
+    build: .
+    container_name: chronico_api
+    restart: always
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgresql://chronico_user:chronico_password@db:5432/chronico_db
+    # To pass your local API keys:
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    volumes:
+      # Optional: Mount local storage folder if saving files locally on VPS
+      - chronico_storage:/app/storage
+
+volumes:
+  postgres_data:
+  chronico_storage:

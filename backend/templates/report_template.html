@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <title>Report - {{ event_title }}</title>
+    <!-- Import Noto Sans Devanagari from Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        @page {
+            size: A4;
+            margin: 50px;
+        }
+        body {
+            font-family: 'Noto Sans Devanagari', sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #000;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .school-name {
+            font-size: 22px;
+            font-weight: 700;
+            margin: 0;
+            padding: 0;
+        }
+        .school-address {
+            font-size: 14px;
+            font-weight: 400;
+            margin: 5px 0 0 0;
+        }
+        .title-section {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .event-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin: 0;
+        }
+        .event-date {
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        .content {
+            text-align: justify;
+            margin-bottom: 30px;
+        }
+        .content p {
+            margin-bottom: 12px;
+        }
+        .photos-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .photo-container {
+            margin-bottom: 20px;
+            page-break-inside: avoid;
+        }
+        .photo-container img {
+            max-width: 400px;
+            max-height: 300px;
+            height: auto;
+            border: 1px solid #ccc;
+            padding: 2px;
+        }
+        .photo-caption {
+            font-size: 12px;
+            margin-top: 5px;
+            color: #555;
+            font-style: italic;
+        }
+        .footer {
+            margin-top: 40px;
+            text-align: right;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <div class="school-name">{{ school_name }}</div>
+        <div class="school-address">{{ school_address }}</div>
+    </div>
+
+    <div class="title-section">
+        <div class="event-title">{{ event_title }}</div>
+        <div class="event-date">दिनांक: {{ event_date }}</div>
+    </div>
+
+    <div class="content">
+        {{ report_html | safe }}
+    </div>
+
+    {% if photos %}
+    <div class="photos-section">
+        {% for photo in photos %}
+            <div class="photo-container">
+                <img src="file://{{ photo.path }}" alt="Event Photo">
+                {% if photo.description %}
+                    <div class="photo-caption">{{ photo.description }}</div>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="footer">
+        {{ signatory }}
+    </div>
+
+</body>
+</html>

@@ -1,10 +1,20 @@
+
 import 'package:flutter/material.dart';
 import 'providers/app_state.dart';
 import 'screens/main_navigation_screen.dart';
+import 'screens/login_screen.dart';
 import 'theme/app_theme.dart';
 
-void main() {
+import 'package:supabase_flutter/supabase_flutter.dart';
+
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  
+  await Supabase.initialize(
+    url: 'https://laucmoihhnrnegcgjpzh.supabase.co',
+    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxhdWNtb2loaG5ybmVnY2dqcHpoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYxODI2MDYsImV4cCI6MjEwMTc1ODYwNn0.BbArODhwKelbJwYWujH7uC4pYQmxxqVCpv7j3nDGbI8',
+  );
+  
   runApp(const ChronicoApp());
 }
 
@@ -27,7 +37,7 @@ class _ChronicoAppState extends State<ChronicoApp> {
           title: 'Chronico',
           debugShowCheckedModeBanner: false,
           theme: ChronicoTheme.darkTheme,
-          home: MainNavigationScreen(appState: _appState),
+          home: LoginScreen(appState: _appState),
         );
       },
     );
