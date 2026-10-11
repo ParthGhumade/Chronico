@@ -1,0 +1,48 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: chronico_api
+    restart: unless-stopped
+    command: ["api"]
+    env_file:
+      - backend/.env
+    environment:
+      - CHRONICO_DB_PATH=/app/backend/data/chronico.db
+    ports:
+      - "${API_PORT:-8001}:8000"
+    volumes:
+      - chronico_data:/app/backend/data
+      - chronico_reports:/app/backend/generated_reports
+      - chronico_uploads:/app/backend/uploads
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: chronico_bot
+    restart: unless-stopped
+    command: ["bot"]
+    env_file:
+      - backend/.env
+    environment:
+      - CHRONICO_DB_PATH=/app/backend/data/chronico.db
+    volumes:
+      - chronico_data:/app/backend/data
+      - chronico_reports:/app/backend/generated_reports
+      - chronico_uploads:/app/backend/uploads
+    depends_on:
+      api:
+        condition: service_healthy
+
+volumes:
+  chronico_data:
+  chronico_reports:
+  chronico_uploads:

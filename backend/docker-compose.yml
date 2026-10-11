@@ -1,36 +1,48 @@
-version: "3.8"
-
 services:
-  db:
-    image: postgres:15-alpine
-    container_name: chronico_postgres
-    restart: always
-    environment:
-      POSTGRES_USER: chronico_user
-      POSTGRES_PASSWORD: chronico_password
-      POSTGRES_DB: chronico_db
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
-
   api:
-    build: .
+    build:
+      context: ..
+      dockerfile: Dockerfile
     container_name: chronico_api
-    restart: always
-    depends_on:
-      - db
-    environment:
-      - DATABASE_URL=postgresql://chronico_user:chronico_password@db:5432/chronico_db
-    # To pass your local API keys:
+    restart: unless-stopped
+    command: ["api"]
     env_file:
       - .env
+    environment:
+      - CHRONICO_DB_PATH=/app/backend/data/chronico.db
     ports:
-      - "8000:8000"
+      - "${API_PORT:-8001}:8000"
     volumes:
-      # Optional: Mount local storage folder if saving files locally on VPS
-      - chronico_storage:/app/storage
+      - chronico_data:/app/backend/data
+      - chronico_reports:/app/backend/generated_reports
+      - chronico_uploads:/app/backend/uploads
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  bot:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    container_name: chronico_bot
+    restart: unless-stopped
+    command: ["bot"]
+    env_file:
+      - .env
+    environment:
+      - CHRONICO_DB_PATH=/app/backend/data/chronico.db
+    volumes:
+      - chronico_data:/app/backend/data
+      - chronico_reports:/app/backend/generated_reports
+      - chronico_uploads:/app/backend/uploads
+    depends_on:
+      api:
+        condition: service_healthy
 
 volumes:
-  postgres_data:
-  chronico_storage:
+  chronico_data:
+  chronico_reports:
+  chronico_uploads:
