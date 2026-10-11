@@ -46,4 +46,4 @@ EXPOSE 8000
 
 # Set entrypoint
 ENTRYPOINT ["/app/backend/start.sh"]
-CMD ["api"]
+CMD ["all"]
