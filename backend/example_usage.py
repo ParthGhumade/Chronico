@@ -91,9 +91,23 @@ def main():
         
         # 4. PDF Generation Test
         print("\n--- 4. Testing PDF Generation ---")
-        pdf_output_path = "generated_reports/report_001.pdf"
+        pdf_output_path = "backend/generated_reports/report_001.pdf"
         generate_pdf_report(pipeline_result.final_report, sample_context, pdf_output_path)
         print(f"PDF successfully generated at: {pdf_output_path}")
+
+        # 5. Single I/O API Test (Only raw narration provided - no manual Context construction)
+        print("\n--- 5. Testing Single I/O API (Narration In -> Report & PDF Out) ---")
+        from backend.pipeline import generate_report
+
+        single_io_response = generate_report(
+            narration="२६ जानेवारी रोजी शाळेत ७७ वा प्रजासत्ताक दिन साजरा करण्यात आला. ध्वजारोहण सरपंच यांच्या हस्ते झाले. विद्यार्थ्यांनी देशभक्तीपर गीते गायली.",
+            photos=[],
+        )
+        print(f"Single I/O Success: {single_io_response.success}")
+        print(f"Extracted Event Title: {single_io_response.event.title}")
+        print(f"Extracted Event Date: {single_io_response.event.date}")
+        print(f"Generated PDF Path: {single_io_response.pdf_path}")
+        print(f"Report Text Preview:\n{single_io_response.report_text[:200]}...")
 
     except Exception as e:
         print(f"Error running pipeline: {e}")
@@ -101,3 +115,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

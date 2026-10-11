@@ -20,7 +20,7 @@ Your job is ONLY to verify factual correctness and detect hallucinations.
 Check for:
 - Hallucinations: any facts, guests, activities, speeches, or details added to the report that DO NOT exist or are not implied in the original context or raw narration.
 - Missing key activities or people mentioned in the original narration.
-- Wrong names, titles, dates, venues, or numbers.
+- Wrong names, titles, dates, venues, or numbers. (Note: when narration mentions relative dates like 'आज' / today or 'काल' / yesterday, resolving them to the actual calendar date using the date tool is considered completely valid and grounded, not a hallucination).
 - Contradictions between the draft report and the original context.
 
 Output JSON with exact structure:

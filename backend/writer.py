@@ -6,6 +6,7 @@ from google import genai
 from google.genai import types
 
 from backend.config import DEFAULT_MODEL_NAME
+from backend.date_tool import get_date
 from backend.models import Context
 
 # Load environment variables from .env file if present
@@ -20,6 +21,7 @@ Objectives:
 - Do not invent information.
 - Use official Marathi.
 - Use school information when relevant.
+- Date resolution: When relative time expressions (such as आज, काल, उद्या, परवा, yesterday, today, last week) are mentioned in the narration, use the get_date tool to find the exact calendar date. In the report header and text, always write the concrete calendar date (e.g., दिनांक: 11 ऑक्टोबर 2026) rather than leaving relative words like 'आज' or 'काल'.
 - If uncertain, omit rather than hallucinate.
 
 Output:
@@ -34,17 +36,8 @@ def run_writer_agent(
     model_name: str | None = None,
 ) -> str:
     """
-    Writer Agent function that calls the Gemini API to generate a formal Marathi school event report.
-
-    Args:
-        context: The shared context object (Context Pydantic model or dict) containing school, event, photo details, and raw narration.
-        retry_issues: Optional list of issues or feedback string from the Verifier agent for retry runs.
-        current_draft: Optional current draft report being corrected during a retry run.
-        api_key: Optional explicit Gemini API key. Defaults to GEMINI_API_KEY env var.
-        model_name: Optional Gemini model name. Defaults to GEMINI_MODEL env var or 'gemini-2.5-flash'.
-
-    Returns:
-        Generated plain Marathi event report string.
+    Writer Agent function that calls the Gemini API to generate a formal Marathi school event report,
+    using the get_date tool to accurately translate relative dates into exact calendar dates.
     """
     resolved_api_key = api_key or os.getenv("GEMINI_API_KEY")
     if not resolved_api_key:
@@ -93,12 +86,10 @@ Please convert the narration and context above into a formal Marathi school even
     config = types.GenerateContentConfig(
         system_instruction=WRITER_SYSTEM_INSTRUCTION,
         temperature=0.6,  # Medium temperature as per PROMPTS.md specification
+        tools=[get_date],
     )
 
-    response = client.models.generate_content(
-        model=resolved_model,
-        contents=prompt,
-        config=config,
-    )
+    chat = client.chats.create(model=resolved_model, config=config)
+    response = chat.send_message(prompt)
 
     return response.text.strip() if response.text else ""
