@@ -11,7 +11,12 @@ services:
     environment:
       - CHRONICO_DB_PATH=/app/backend/data/chronico.db
     ports:
-      - "${API_PORT:-8001}:8000"
+      - "${API_PORT:-8002}:8000"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 1024M
     volumes:
       - chronico_data:/app/backend/data
       - chronico_reports:/app/backend/generated_reports
@@ -34,6 +39,11 @@ services:
       - backend/.env
     environment:
       - CHRONICO_DB_PATH=/app/backend/data/chronico.db
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 1024M
     volumes:
       - chronico_data:/app/backend/data
       - chronico_reports:/app/backend/generated_reports

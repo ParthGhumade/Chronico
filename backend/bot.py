@@ -192,6 +192,48 @@ async def cancel_session_handler(update: Update, context: ContextTypes.DEFAULT_T
     )
 
 
+async def download_telegram_media(
+    media_obj: Any,
+    target_path: Path,
+    max_retries: int = 3,
+) -> bool:
+    """
+    Downloads media from Telegram with validation, retry loop, and custom timeouts.
+    """
+    file_size = getattr(media_obj, "file_size", None)
+    if file_size and file_size > 20 * 1024 * 1024:
+        raise ValueError(
+            f"फाईल आकार ({file_size / (1024 * 1024):.1f}MB) टेलिग्रामच्या २०MB मर्यादेपेक्षा जास्त आहे."
+        )
+
+    last_error = None
+    for attempt in range(1, max_retries + 1):
+        try:
+            tg_file = await media_obj.get_file(
+                read_timeout=60.0,
+                write_timeout=60.0,
+                connect_timeout=30.0,
+            )
+            await tg_file.download_to_drive(
+                custom_path=target_path,
+                read_timeout=120.0,
+                write_timeout=120.0,
+                connect_timeout=30.0,
+            )
+            return True
+        except Exception as e:
+            last_error = e
+            logger.warning(
+                f"Download attempt {attempt}/{max_retries} failed for "
+                f"{getattr(media_obj, 'file_id', 'unknown')}: {e}"
+            )
+            if attempt < max_retries:
+                await asyncio.sleep(1.5 * attempt)
+            else:
+                raise last_error
+    return False
+
+
 async def photo_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Downloads incoming photos and attaches them to the active session."""
     if not update.effective_message or not update.effective_message.photo:
@@ -202,12 +244,25 @@ async def photo_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> N
     if not draft.is_active:
         draft.is_active = True
 
+    try:
+        await context.bot.send_chat_action(chat_id=chat_id, action="upload_photo")
+    except Exception:
+        pass
+
     # Get the highest resolution version
     photo_file = update.effective_message.photo[-1]
-    tg_file = await photo_file.get_file()
-
     target_path = UPLOADS_DIR / f"img_{uuid.uuid4().hex[:8]}.jpg"
-    await tg_file.download_to_drive(custom_path=target_path)
+
+    try:
+        await download_telegram_media(photo_file, target_path)
+    except Exception as e:
+        logger.error(f"Failed to download photo from chat {chat_id}: {e}", exc_info=True)
+        await update.effective_message.reply_text(
+            "⚠️ **फोटो डाउनलोड करताना समस्या आली (नेटवर्क टाइमआउट).**\n"
+            "कृपया तोच फोटो पुन्हा पाठवून पहा.",
+            parse_mode=ParseMode.MARKDOWN,
+        )
+        return
 
     draft.photo_paths.append(target_path)
     draft.temp_files.append(target_path)
@@ -241,10 +296,24 @@ async def voice_or_audio_handler(update: Update, context: ContextTypes.DEFAULT_T
     if not audio_obj:
         return
 
-    tg_file = await audio_obj.get_file()
+    try:
+        await context.bot.send_chat_action(chat_id=chat_id, action="record_voice")
+    except Exception:
+        pass
+
     suffix = ".ogg" if msg.voice else Path(getattr(audio_obj, "file_name", "audio.mp3")).suffix or ".ogg"
     target_path = UPLOADS_DIR / f"voice_{uuid.uuid4().hex[:8]}{suffix}"
-    await tg_file.download_to_drive(custom_path=target_path)
+
+    try:
+        await download_telegram_media(audio_obj, target_path)
+    except Exception as e:
+        logger.error(f"Failed to download audio from chat {chat_id}: {e}", exc_info=True)
+        await update.effective_message.reply_text(
+            "⚠️ **व्हॉईस नोट डाउनलोड करताना समस्या आली (नेटवर्क टाइमआउट).**\n"
+            "कृपया तीच व्हॉईस नोट पुन्हा पाठवून पहा.",
+            parse_mode=ParseMode.MARKDOWN,
+        )
+        return
 
     draft.audio_paths.append(target_path)
     draft.temp_files.append(target_path)
@@ -533,6 +602,24 @@ async def delete_config_command(update: Update, context: ContextTypes.DEFAULT_TY
 # Application Factory
 # ==============================================================================
 
+async def global_error_handler(update: object, context: ContextTypes.DEFAULT_TYPE) -> None:
+    """Logs unhandled exceptions and notifies user gracefully."""
+    logger.error("Exception while handling an update:", exc_info=context.error)
+    if isinstance(update, Update) and update.effective_message:
+        try:
+            from telegram.error import NetworkError, TimedOut
+            if isinstance(context.error, (TimedOut, NetworkError)):
+                await update.effective_message.reply_text(
+                    "⚠️ **नेटवर्क टाइमआउट:** टेलिग्राम सर्व्हरकडून प्रतिसाद मिळण्यास उशीर झाला. कृपया पुन्हा प्रयत्न करा."
+                )
+            else:
+                await update.effective_message.reply_text(
+                    "⚠️ प्रक्रियेदरम्यान तांत्रिक त्रुटी आली. कृपया पुन्हा प्रयत्न करा."
+                )
+        except Exception:
+            pass
+
+
 def create_telegram_bot_app(token: str) -> Application:
     """Builds and returns the configured python-telegram-bot Application."""
     from telegram.request import HTTPXRequest
@@ -540,13 +627,18 @@ def create_telegram_bot_app(token: str) -> Application:
     init_db()
 
     request_config = HTTPXRequest(
-        connection_pool_size=8,
+        connection_pool_size=32,
         connect_timeout=30.0,
-        read_timeout=30.0,
-        write_timeout=30.0,
+        read_timeout=60.0,
+        write_timeout=60.0,
+        pool_timeout=30.0,
+        media_write_timeout=60.0,
     )
 
     app = Application.builder().token(token).request(request_config).build()
+
+    # Global error handler
+    app.add_error_handler(global_error_handler)
 
     # Commands
     app.add_handler(CommandHandler("start", start_command))
